@@ -3,6 +3,7 @@ class AttrTest(object):
         if name in ["test"]:
             return "Return by __getattribute__"
         raise AttributeError
+
     def __getattr__(self, name):
         return "You are finding a missing variable:", name
 
@@ -10,6 +11,7 @@ class AttrTest(object):
 class AttrOldTest:
     def __getattribute__(self, name):
         return "Go through __getattribute__"
+
     def __getattr__(self, name):
         return "You are finding a missing variable:", name
 
@@ -19,14 +21,14 @@ if __name__ == '__main__':
     try:
         choice = int(i)
     except:
-        print "Unavailable choice."
+        raise ValueError("Unavailable choice.")
 
     if choice == 1:
         cls = AttrTest
     elif choice == 2:
         cls = AttrOldTest
     else:
-        print "Unavailable choice."
+        raise ValueError("Unavailable choice.")
 
     print "instance = %s()" % cls.__name__
     instance = cls()
